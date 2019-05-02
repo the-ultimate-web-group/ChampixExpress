@@ -1,6 +1,6 @@
-package com.epul.champix.repositories;
+package com.champix.clientchampix.repositories;
 
-import com.epul.champix.models.UtilisateurEntity;
+import com.champix.clientchampix.domains.UtilisateurEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

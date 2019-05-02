@@ -137,7 +137,7 @@ public class VehiculeEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "type_vehicule", referencedColumnName = "idType_vehicule", nullable = false)
+    @JoinColumn(name = "type_vehicule", referencedColumnName = "idType_vehicule", nullable = false, updatable = false, insertable = false)
     public TypeVehiculeEntity getTypeVehiculeByTypeVehicule() {
         return typeVehiculeByTypeVehicule;
     }

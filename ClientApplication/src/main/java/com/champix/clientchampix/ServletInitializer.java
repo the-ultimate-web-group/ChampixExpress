@@ -1,4 +1,4 @@
-package com.polyauto.client;
+package com.champix.clientchampix;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -7,7 +7,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(ClientApplication.class);
+        return application.sources(ClientChampixApplication.class);
     }
 
 }

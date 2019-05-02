@@ -21,7 +21,7 @@ public class UtilisateurEntity {
         this.idClient = idClient;
     }
 
-    @Basic
+    @Id
     @Column(name = "identifiant", nullable = false, length = 45)
     public String getIdentifiant() {
         return identifiant;
@@ -57,7 +57,7 @@ public class UtilisateurEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idClient", referencedColumnName = "idClient", nullable = false)
+    @JoinColumn(name = "idClient", referencedColumnName = "idClient", nullable = false, updatable = false, insertable = false)
     public ClientEntity getClientByIdClient() {
         return clientByIdClient;
     }

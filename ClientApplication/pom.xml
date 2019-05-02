@@ -8,7 +8,7 @@
         <version>2.1.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.epul.champix</groupId>
+    <groupId>com.champix.clientchampix</groupId>
     <artifactId>client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
