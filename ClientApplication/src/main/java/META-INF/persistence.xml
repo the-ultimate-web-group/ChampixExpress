@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="NewPersistenceUnit">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>com.champix.clientchampix.domains.BorneEntity</class>
+        <class>com.champix.clientchampix.domains.ClientEntity</class>
+        <class>com.champix.clientchampix.domains.ReservationEntity</class>
+        <class>com.champix.clientchampix.domains.StationEntity</class>
+        <class>com.champix.clientchampix.domains.TypeVehiculeEntity</class>
+        <class>com.champix.clientchampix.domains.UtilisateurEntity</class>
+        <class>com.champix.clientchampix.domains.UtiliseEntity</class>
+        <class>com.champix.clientchampix.domains.VehiculeEntity</class>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/autolib"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.username" value=""/>
+            <property name="hibernate.connection.password" value=""/>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+</persistence>
