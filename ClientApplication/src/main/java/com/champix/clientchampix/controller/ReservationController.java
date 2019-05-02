@@ -1,4 +1,4 @@
-package com.epul.champix.controller;
+package com.champix.clientchampix.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

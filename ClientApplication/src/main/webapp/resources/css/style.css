@@ -311,8 +311,19 @@ body {
 
 .header-container{
     color: white;
-    background-color: lightskyblue;
-    height: 900px;
+    height: 300px;
     width: 100%;
     text-align: center;
+    background-repeat: no-repeat;
+    background-image: url(../../resources/images/bg.jpg);
+}
+
+.header-container h1,h3{
+    position: relative;
+    top: 25%;
+}
+
+.navbar{
+    border-radius: 0 !important;
+    padding: 10px !important;
 }

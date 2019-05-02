@@ -1,7 +1,7 @@
-package com.epul.champix.controller;
+package com.champix.clientchampix.controller;
 
-import com.epul.champix.models.UtilisateurEntity;
-import com.epul.champix.repositories.UtilisateurEntityRepository;
+import com.champix.clientchampix.domains.UtilisateurEntity;
+import com.champix.clientchampix.repositories.UtilisateurEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

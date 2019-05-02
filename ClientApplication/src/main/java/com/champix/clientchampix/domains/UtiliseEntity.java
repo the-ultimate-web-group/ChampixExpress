@@ -86,7 +86,7 @@ public class UtiliseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "Vehicule", referencedColumnName = "idVehicule", nullable = false)
+    @JoinColumn(name = "Vehicule", referencedColumnName = "idVehicule", nullable = false, updatable = false, insertable = false)
     public VehiculeEntity getVehiculeByVehicule() {
         return vehiculeByVehicule;
     }
@@ -96,7 +96,7 @@ public class UtiliseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "Client", referencedColumnName = "idClient", nullable = false)
+    @JoinColumn(name = "Client", referencedColumnName = "idClient", nullable = false, updatable = false, insertable = false)
     public ClientEntity getClientByClient() {
         return clientByClient;
     }
@@ -106,7 +106,7 @@ public class UtiliseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "borne_depart", referencedColumnName = "idBorne", nullable = false)
+    @JoinColumn(name = "borne_depart", referencedColumnName = "idBorne", nullable = false, updatable = false, insertable = false)
     public BorneEntity getBorneByBorneDepart() {
         return borneByBorneDepart;
     }
@@ -116,7 +116,7 @@ public class UtiliseEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "borne_arrivee", referencedColumnName = "idBorne")
+    @JoinColumn(name = "borne_arrivee", referencedColumnName = "idBorne", updatable = false, insertable = false)
     public BorneEntity getBorneByBorneArrivee() {
         return borneByBorneArrivee;
     }

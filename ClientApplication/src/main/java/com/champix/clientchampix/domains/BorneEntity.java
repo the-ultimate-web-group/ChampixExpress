@@ -73,7 +73,7 @@ public class BorneEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "station", referencedColumnName = "idStation", nullable = false)
+    @JoinColumn(name = "station", referencedColumnName = "idStation", nullable = false, updatable = false, insertable = false)
     public StationEntity getStationByStation() {
         return stationByStation;
     }
@@ -83,7 +83,7 @@ public class BorneEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "idVehicule", referencedColumnName = "idVehicule")
+    @JoinColumn(name = "idVehicule", referencedColumnName = "idVehicule", updatable = false, insertable = false)
     public VehiculeEntity getVehiculeByIdVehicule() {
         return vehiculeByIdVehicule;
     }
