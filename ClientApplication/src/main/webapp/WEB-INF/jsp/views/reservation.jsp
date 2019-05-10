@@ -11,7 +11,7 @@
     <div class="container">
         <h2 class="text-center text-uppercase text-white">Reservation</h2>
         <hr class="star-light mb-5">
-        <form action='Controleur?action=envoiInscription' method='post' onsubmit="return verif(this);">
+        <form action='${pageContext.request.contextPath}/reservation/envoiReservation?idBorne=${idBorne}' onsubmit="return verif(this);">
             <div>
                 <div class="container">
                     <div class="well">
@@ -20,11 +20,11 @@
                             <div class="col-lg-4 ml-auto">
                                 <p> Début de votre résevation:</p>
                                 <div class="form-group">
-                                    <input type="date" name="datereservationdebut" id="datereservationdebut" class="form-control" min="0">
+                                    <input type="date" name="dateDeb" id="dateDeb" class="form-control" min="0">
                                 </div>
                                 <p> Fin de votre réservation :</p>
                                 <div class="form-group">
-                                    <input type = "date" name="datereservationfin" id="datereservationfin" class="form-control" min="0">
+                                    <input type = "date" name="dateFin" id="dateFin" class="form-control" min="0">
                                 </div>
                             </div>
                             <div class="col-lg-4 mr-auto">
