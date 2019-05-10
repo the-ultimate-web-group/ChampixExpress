@@ -43,16 +43,16 @@ public class AuthentificationController {
                 if (unUtilisateur.getMdp().equals(mdp)) {
                     HttpSession session = request.getSession();
                     session.setAttribute("id", unUtilisateur.getIdClient());
-                    destinationPage = "/index";
+                    destinationPage = "redirect:/station/listerStations";
                 } else {
                     message = "mot de passe erroné";
-                    request.setAttribute("message", message);
-                    destinationPage = "/views/formLogin";
+                    request.setAttribute("erreur", message);
+                    destinationPage = "/views/error";
                 }
             } else {
                 message = "login erroné";
-                request.setAttribute("message", message);
-                destinationPage = "/views/formLogin";
+                request.setAttribute("erreur", message);
+                destinationPage = "/views/error";
             }
         }
         return new ModelAndView(destinationPage);
