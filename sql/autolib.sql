@@ -29,17 +29,17 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `borne` (
-  `idBorne` int(11) NOT NULL,
-  `etatBorne` tinyint(1) NOT NULL,
+  `id_borne` int(11) NOT NULL,
+  `etat_borne` tinyint(1) NOT NULL,
   `station` int(11) NOT NULL,
-  `idVehicule` int(11) DEFAULT NULL
+  `id_vehicule` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `borne`
 --
 
-INSERT INTO `borne` (`idBorne`, `etatBorne`, `station`, `idVehicule`) VALUES
+INSERT INTO `borne` (`id_borne`, `etat_borne`, `station`, `id_vehicule`) VALUES
 (1, 0, 1, 1),
 (2, 0, 1, 2),
 (3, 1, 1, NULL),
@@ -226,7 +226,7 @@ INSERT INTO `borne` (`idBorne`, `etatBorne`, `station`, `idVehicule`) VALUES
 --
 
 CREATE TABLE `client` (
-  `idClient` int(11) NOT NULL,
+  `id_client` int(11) NOT NULL,
   `nom` varchar(45) NOT NULL,
   `prenom` varchar(45) NOT NULL,
   `date_naissance` date DEFAULT NULL
@@ -236,7 +236,7 @@ CREATE TABLE `client` (
 -- Déchargement des données de la table `client`
 --
 
-INSERT INTO `client` (`idClient`, `nom`, `prenom`, `date_naissance`) VALUES
+INSERT INTO `client` (`id_client`, `nom`, `prenom`, `date_naissance`) VALUES
 (1, 'DUVERLIE', 'FRANCOISE', '1988-07-25'),
 (2, 'LEMARCHAND', 'COLETTE', '1954-09-26'),
 (3, 'ROCANCOURT', 'XAVIER', '1942-05-14'),
@@ -339,12 +339,12 @@ INSERT INTO `client` (`idClient`, `nom`, `prenom`, `date_naissance`) VALUES
 (100, 'LEBRETON', 'JEAN-LUC', '1970-11-27');
 
 CREATE TABLE `utilisateur` ( 
-	`idClient` INT(11) NOT NULL , 
+	`id_client` INT(11) NOT NULL ,
 	`identifiant` VARCHAR(45) NOT NULL , 
 	`mdp` VARCHAR(45) NOT NULL) ENGINE = InnoDB;
 
-INSERT INTO `utilisateur` (idClient, identifiant, mdp)
-SELECT c.idClient, CONCAT(LOWER(c.nom), ".", LOWER(c.prenom), "@champix.com"), LOWER(c.prenom)
+INSERT INTO `utilisateur` (id_client, identifiant, mdp)
+SELECT c.id_client, CONCAT(LOWER(c.nom), ".", LOWER(c.prenom), "@champix.com"), LOWER(c.prenom)
 FROM `client` c;
 
 -- --------------------------------------------------------
@@ -377,7 +377,7 @@ INSERT INTO `reservation` (`vehicule`, `client`, `date_reservation`, `date_echea
 --
 
 CREATE TABLE `station` (
-  `idStation` int(11) NOT NULL,
+  `id_station` int(11) NOT NULL,
   `latitude` decimal(9,6) NOT NULL,
   `longitude` decimal(9,6) NOT NULL,
   `adresse` varchar(200) DEFAULT NULL,
@@ -390,7 +390,7 @@ CREATE TABLE `station` (
 -- Déchargement des données de la table `station`
 --
 
-INSERT INTO `station` (`idStation`, `latitude`, `longitude`, `adresse`, `numero`, `ville`, `code_postal`) VALUES
+INSERT INTO `station` (`id_station`, `latitude`, `longitude`, `adresse`, `numero`, `ville`, `code_postal`) VALUES
 (1, '45.745013', '4.871353', 'Place Ambroise Courtois', 18, 'LYON', 69003),
 (2, '45.756529', '4.835870', 'Place Antonin Poncet', 1, 'LYON', 69002),
 (3, '45.736646', '4.869195', 'Place du 11 Novembre 1918', 1, 'LYON', 69008),
@@ -435,7 +435,7 @@ INSERT INTO `station` (`idStation`, `latitude`, `longitude`, `adresse`, `numero`
 --
 
 CREATE TABLE `type_vehicule` (
-  `idType_vehicule` int(11) NOT NULL,
+  `id_type_vehicule` int(11) NOT NULL,
   `categorie` varchar(45) NOT NULL,
   `type_vehicule` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -444,7 +444,7 @@ CREATE TABLE `type_vehicule` (
 -- Déchargement des données de la table `type_vehicule`
 --
 
-INSERT INTO `type_vehicule` (`idType_vehicule`, `categorie`, `type_vehicule`) VALUES
+INSERT INTO `type_vehicule` (`id_type_vehicule`, `categorie`, `type_vehicule`) VALUES
 (1, 'Petite citadine', 'CitroÃ«n C1'),
 (2, 'Petite citadine', 'Toyota Aygo'),
 (3, 'Utilitaire', 'CitroÃ«n Berlingo'),
@@ -461,8 +461,8 @@ INSERT INTO `type_vehicule` (`idType_vehicule`, `categorie`, `type_vehicule`) VA
 --
 
 CREATE TABLE `utilise` (
-  `Vehicule` int(11) NOT NULL,
-  `Client` int(11) NOT NULL,
+  `vehicule` int(11) NOT NULL,
+  `client` int(11) NOT NULL,
   `date` datetime NOT NULL,
   `borne_depart` int(11) NOT NULL,
   `borne_arrivee` int(11) DEFAULT NULL
@@ -472,7 +472,7 @@ CREATE TABLE `utilise` (
 -- Déchargement des données de la table `utilise`
 --
 
-INSERT INTO `utilise` (`Vehicule`, `Client`, `date`, `borne_depart`, `borne_arrivee`) VALUES
+INSERT INTO `utilise` (`vehicule`, `client`, `date`, `borne_depart`, `borne_arrivee`) VALUES
 (1, 1, '2016-01-12 00:00:00', 7, 15);
 
 -- --------------------------------------------------------
@@ -482,10 +482,10 @@ INSERT INTO `utilise` (`Vehicule`, `Client`, `date`, `borne_depart`, `borne_arri
 --
 
 CREATE TABLE `vehicule` (
-  `idVehicule` int(11) NOT NULL,
-  `RFID` int(11) NOT NULL,
-  `etatBatterie` int(11) DEFAULT NULL,
-  `Disponibilite` varchar(45) NOT NULL,
+  `id_vehicule` int(11) NOT NULL,
+  `rfid` int(11) NOT NULL,
+  `etat_batterie` int(11) DEFAULT NULL,
+  `disponibilite` varchar(45) NOT NULL,
   `latitude` decimal(9,6) DEFAULT NULL,
   `longitude` decimal(9,6) DEFAULT NULL,
   `type_vehicule` int(11) NOT NULL
@@ -495,7 +495,7 @@ CREATE TABLE `vehicule` (
 -- Déchargement des données de la table `vehicule`
 --
 
-INSERT INTO `vehicule` (`idVehicule`, `RFID`, `etatBatterie`, `Disponibilite`, `latitude`, `longitude`, `type_vehicule`) VALUES
+INSERT INTO `vehicule` (`id_vehicule`, `rfid`, `etat_batterie`, `disponibilite`, `latitude`, `longitude`, `type_vehicule`) VALUES
 (1, 1234567891, 100, 'LIBRE', '45.745013', '4.871353', 2),
 (2, 1234567892, 100, 'LIBRE', '45.745013', '4.871353', 2),
 (3, 1234567893, 100, 'LIBRE', '45.756529', '4.835870', 2),
@@ -594,42 +594,42 @@ INSERT INTO `vehicule` (`idVehicule`, `RFID`, `etatBatterie`, `Disponibilite`, `
 -- Index pour la table `borne`
 --
 ALTER TABLE `borne`
-  ADD PRIMARY KEY (`idBorne`),
+  ADD PRIMARY KEY (`id_borne`),
   ADD KEY `fk_Borne_Station1_idx` (`station`),
-  ADD KEY `fk_Borne_Vehicule1_idx` (`idVehicule`);
+  ADD KEY `fk_Borne_Vehicule1_idx` (`id_vehicule`);
 
 --
 -- Index pour la table `client`
 --
 ALTER TABLE `client`
-  ADD PRIMARY KEY (`idClient`);
+  ADD PRIMARY KEY (`id_client`);
 
 --
 -- Index pour la table `reservation`
 --
 ALTER TABLE `reservation`
   ADD PRIMARY KEY (`vehicule`,`client`,`date_reservation`),
-  ADD KEY `fk_Reservation_Vehicule1_idx` (`vehicule`),
-  ADD KEY `fk_Reservation_Client1_idx` (`client`);
+  ADD KEY `fk_reservation_vehicule1_idx` (`vehicule`),
+  ADD KEY `fk_reservation_client1_idx` (`client`);
 
 --
 -- Index pour la table `station`
 --
 ALTER TABLE `station`
-  ADD PRIMARY KEY (`idStation`);
+  ADD PRIMARY KEY (`id_station`);
 
 --
 -- Index pour la table `type_vehicule`
 --
 ALTER TABLE `type_vehicule`
-  ADD PRIMARY KEY (`idType_vehicule`);
+  ADD PRIMARY KEY (`id_type_vehicule`);
 
 --
 -- Index pour la table `utilise`
 --
 ALTER TABLE `utilise`
-  ADD PRIMARY KEY (`Vehicule`,`Client`,`date`),
-  ADD KEY `fk_table1_Client1_idx` (`Client`),
+  ADD PRIMARY KEY (`vehicule`,`client`,`date`),
+  ADD KEY `fk_table1_Client1_idx` (`client`),
   ADD KEY `fk_utilise_Borne1_idx` (`borne_depart`),
   ADD KEY `fk_utilise_Borne2_idx` (`borne_arrivee`);
 
@@ -637,8 +637,8 @@ ALTER TABLE `utilise`
 -- Index pour la table `vehicule`
 --
 ALTER TABLE `vehicule`
-  ADD PRIMARY KEY (`idVehicule`),
-  ADD UNIQUE KEY `RFID_UNIQUE` (`RFID`),
+  ADD PRIMARY KEY (`id_vehicule`),
+  ADD UNIQUE KEY `RFID_UNIQUE` (`rfid`),
   ADD KEY `fk_Vehicule_Type_vehicule1_idx` (`type_vehicule`);
 
 --
@@ -649,31 +649,31 @@ ALTER TABLE `vehicule`
 -- AUTO_INCREMENT pour la table `borne`
 --
 ALTER TABLE `borne`
-  MODIFY `idBorne` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
+  MODIFY `id_borne` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
 
 --
 -- AUTO_INCREMENT pour la table `client`
 --
 ALTER TABLE `client`
-  MODIFY `idClient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=401;
+  MODIFY `id_client` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=401;
 
 --
 -- AUTO_INCREMENT pour la table `station`
 --
 ALTER TABLE `station`
-  MODIFY `idStation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id_station` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT pour la table `type_vehicule`
 --
 ALTER TABLE `type_vehicule`
-  MODIFY `idType_vehicule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_type_vehicule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `vehicule`
 --
 ALTER TABLE `vehicule`
-  MODIFY `idVehicule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id_vehicule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- Contraintes pour les tables déchargées
@@ -683,36 +683,36 @@ ALTER TABLE `vehicule`
 -- Contraintes pour la table `borne`
 --
 ALTER TABLE `borne`
-  ADD CONSTRAINT `fk_Borne_Station1` FOREIGN KEY (`station`) REFERENCES `station` (`idStation`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Borne_Vehicule1` FOREIGN KEY (`idVehicule`) REFERENCES `vehicule` (`idVehicule`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Borne_Station1` FOREIGN KEY (`station`) REFERENCES `station` (`id_station`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Borne_Vehicule1` FOREIGN KEY (`id_vehicule`) REFERENCES `vehicule` (`id_vehicule`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  ADD CONSTRAINT `fk_user_1` FOREIGN KEY (`idClient`) REFERENCES `client` (`idClient`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_user_1` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `reservation`
 --
 ALTER TABLE `reservation`
-  ADD CONSTRAINT `fk_Reservation_Client1` FOREIGN KEY (`client`) REFERENCES `client` (`idClient`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Reservation_Vehicule1` FOREIGN KEY (`vehicule`) REFERENCES `vehicule` (`idVehicule`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Reservation_Client1` FOREIGN KEY (`client`) REFERENCES `client` (`id_client`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Reservation_Vehicule1` FOREIGN KEY (`vehicule`) REFERENCES `vehicule` (`id_vehicule`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `utilise`
 --
 ALTER TABLE `utilise`
-  ADD CONSTRAINT `fk_table1_Client1` FOREIGN KEY (`Client`) REFERENCES `client` (`idClient`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_table1_Vehicule1` FOREIGN KEY (`Vehicule`) REFERENCES `vehicule` (`idVehicule`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_utilise_Borne1` FOREIGN KEY (`borne_depart`) REFERENCES `borne` (`idBorne`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_utilise_Borne2` FOREIGN KEY (`borne_arrivee`) REFERENCES `borne` (`idBorne`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_table1_Client1` FOREIGN KEY (`client`) REFERENCES `client` (`id_client`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_table1_Vehicule1` FOREIGN KEY (`vehicule`) REFERENCES `vehicule` (`id_vehicule`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_utilise_Borne1` FOREIGN KEY (`borne_depart`) REFERENCES `borne` (`id_borne`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_utilise_Borne2` FOREIGN KEY (`borne_arrivee`) REFERENCES `borne` (`id_borne`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `vehicule`
 --
 ALTER TABLE `vehicule`
-  ADD CONSTRAINT `fk_Vehicule_Type_vehicule1` FOREIGN KEY (`type_vehicule`) REFERENCES `type_vehicule` (`idType_vehicule`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_Vehicule_Type_vehicule1` FOREIGN KEY (`type_vehicule`) REFERENCES `type_vehicule` (`id_type_vehicule`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

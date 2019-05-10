@@ -1,7 +1,7 @@
 package com.champix.clientchampix.controller;
 
 import com.champix.clientchampix.domains.UtilisateurEntity;
-import com.champix.clientchampix.repositories.UtilisateurEntityRepository;
+import com.champix.clientchampix.repository.UtilisateurEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +39,7 @@ public class AuthentificationController {
             unUtilisateur = unUtilisateurRepostory.findByIdentifiant(identifiant);
             if (unUtilisateur != null)
             {
+                // TODO : améliorer avec un hash du mdp
                 if (unUtilisateur.getMdp().equals(mdp)) {
                     HttpSession session = request.getSession();
                     session.setAttribute("id", unUtilisateur.getIdClient());

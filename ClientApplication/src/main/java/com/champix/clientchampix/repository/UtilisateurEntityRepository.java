@@ -1,4 +1,4 @@
-package com.champix.clientchampix.repositories;
+package com.champix.clientchampix.repository;
 
 import com.champix.clientchampix.domains.UtilisateurEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
