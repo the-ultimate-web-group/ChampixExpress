@@ -1,5 +1,6 @@
 package com.champix.clientchampix.controller;
 
+import com.champix.clientchampix.jms.MessageJms;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +22,15 @@ public class ReservationController {
 
         String destinationPage="";
         try {
-            destinationPage = "reservation";
+            int idVehicule = Integer.parseInt(request.getParameter("idVehicule"));
+            int idClient = Integer.parseInt(request.getParameter("idClient"));
+
+//            StringBuilder message = new StringBuilder();
+//            MessageJms messageJms = new MessageJms();
+//            messageJms.sendMessage(" ");
+            //TODO jms call
+
+            destinationPage = "/index";
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
             destinationPage = "views/error";

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 
 <%@include file="../header.jsp" %>
 <body class="liste">
@@ -33,29 +33,37 @@
 
                             <c:forEach items="${item.bornesByIdStation}" var="borne">
                                 <tr>
-                                    <td>borne.idBorne</td>
-                                    <td>borne.etatBorne</td>
+                                    <td>${borne.idBorne}</td>
                                     <c:if test="${borne.etatBorne == 0}">
-                                        <td>borne.vehiculeByIdVehicule.typeVehiculeByTypeVehicule.typeVehicule</td>
-                                        <td>borne.vehiculeByIdVehicule.etatBatterie</td>
+                                        <td>Libre</td>
+                                        <td>${borne.vehiculeByIdVehicule.typeVehiculeByTypeVehicule.typeVehicule}</td>
+                                        <td>${borne.vehiculeByIdVehicule.etatBatterie}</td>
+                                        <td>
+                                            <a class="btn btn-info"
+                                               href="/reservation/reservation?id=${borne.idBorne}"
+                                               role="button"><span class="glyphicon glyphicon-calendar"></span></a>
+                                        </td>
+                                    </c:if>
+                                    <c:if test="${borne.etatBorne != 0}">
+                                        <td>En utilisation</td>
                                     </c:if>
 
                                 </tr>
                             </c:forEach>
                         </table>
                     </td>
-                    <td>
-                        <c:if test="${item.statut == 'En attente'}">
-                            <a class="btn btn-info" href="validerReservation.htm?id=${item.oeuvreventeByIdOeuvrevente.idOeuvrevente}&adh=${item.adherentByIdAdherent.idAdherent}&date=${item.dateReservation}"
-                               role="button"><span class="glyphicon glyphicon-ok"></span></a>
-                        </c:if>
-                    </td>
-                    <td>
-                        <c:if test="${item.statut != 'Annulee'}">
-                            <a class="btn btn-danger" href="annulerReservation.htm?id=${item.oeuvreventeByIdOeuvrevente.idOeuvrevente}&adh=${item.adherentByIdAdherent.idAdherent}&date=${item.dateReservation}"
-                               role="button"><span class="glyphicon glyphicon-remove"></span></a>
-                        </c:if>
-                    </td>
+                        <%--<td>--%>
+                        <%--<c:if test="${item.statut == 'En attente'}">--%>
+                        <%--<a class="btn btn-info" href="validerReservation.htm?id=${item.oeuvreventeByIdOeuvrevente.idOeuvrevente}&adh=${item.adherentByIdAdherent.idAdherent}&date=${item.dateReservation}"--%>
+                        <%--role="button"><span class="glyphicon glyphicon-ok"></span></a>--%>
+                        <%--</c:if>--%>
+                        <%--</td>--%>
+                        <%--<td>--%>
+                        <%--<c:if test="${item.statut != 'Annulee'}">--%>
+                        <%--<a class="btn btn-danger" href="annulerReservation.htm?id=${item.oeuvreventeByIdOeuvrevente.idOeuvrevente}&adh=${item.adherentByIdAdherent.idAdherent}&date=${item.dateReservation}"--%>
+                        <%--role="button"><span class="glyphicon glyphicon-remove"></span></a>--%>
+                        <%--</c:if>--%>
+                        <%--</td>--%>
                 </tr>
             </c:forEach>
         </table>

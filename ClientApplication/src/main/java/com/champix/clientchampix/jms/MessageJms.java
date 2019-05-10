@@ -3,6 +3,7 @@ package com.champix.clientchampix.jms;
 import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.NamingException;
+import javax.xml.soap.Text;
 import java.util.logging.Logger;
 
 public class MessageJms {
@@ -20,7 +21,8 @@ public class MessageJms {
     private Connection connection;
     private Context ctxt;
 
-    public void sendMessage(TextMessage message) throws JMSException, NamingException {
+    public void sendMessage(String stringMessage) throws JMSException, NamingException {
+        TextMessage message;
         try {
             ctxt = JBossContext.getInitialContext();
             String connectionFactoryString = System.getProperty(
