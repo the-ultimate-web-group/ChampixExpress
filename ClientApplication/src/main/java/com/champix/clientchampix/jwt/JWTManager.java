@@ -3,17 +3,14 @@ package com.champix.clientchampix.jwt;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.security.Key;
 import java.util.Date;
 
 /**
- * Class containing static methods to manage JSON Web Tokens for the applciation.
+ * Class containing static methods to manage JSON Web Tokens for the application.
  *
  * Source code inspired from https://github.com/oktadeveloper/okta-java-jwt-example/blob/master/src/main/java/com/okta/createverifytokens/JWTDemo.java
  */
@@ -105,7 +102,14 @@ public class JWTManager {
 	 */
 	public static boolean verify(String jwt) {
 		// TODO: Implement the verify function
-		throw new NotImplementedException();
+		Claims claims;
+		try {
+			claims = decode(jwt);
+		} catch (MalformedJwtException ignored) {
+			return false;
+		}
+		
+		return true;
 	}
 	
 	/**
@@ -114,8 +118,7 @@ public class JWTManager {
 	 */
 	public static String getJWTSecretKey() {
 		// TODO: Get it from a file: it's more secure
-		return "byzvqdacckwknwzvueyjjywnsuekdohqsjhliesmmctuvbkxrrkushzjsangbazcgxucfhxiwqpcfeesdezaljczusxcvsaqzdnuu" +
-				"qddwtnclytasbfjsjirkeywrzxnparonblwhwoofbfabvrnqcurxzncshbpoacoyyuqzzdhgslunwtwbdarlkhxocctxwpujzizr" +
-				"vylxdgxmozpfgdxeoibpvdozwwmbeeivfdfhpujkvlxdbesdcyemwkz";
+		return "une-clef-en-beton-de-la-mort-que-personne-ne-pourra-deviner-parcequ-elle-est-trop-verbeuse-et-en-plus" +
+				"-de-ca-elle-en-ecrite-en-francais-omg";
 	}
 }
