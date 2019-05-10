@@ -27,7 +27,7 @@ public class ReservationController {
 
         String destinationPage="";
         try {
-            request.setAttribute("idBorne", request.getParameter("idBorne"));
+            request.setAttribute("idVehicule", request.getParameter("idVehicule"));
             destinationPage = "views/reservation";
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());

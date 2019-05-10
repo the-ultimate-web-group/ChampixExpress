@@ -11,7 +11,7 @@
     <div class="container">
         <h2 class="text-center text-uppercase text-white">Reservation</h2>
         <hr class="star-light mb-5">
-        <form action='${pageContext.request.contextPath}/reservation/envoiReservation?idBorne=${idBorne}' onsubmit="return verif(this);">
+        <form action='${pageContext.request.contextPath}/reservation/envoiReservation?idVehicule=${idVehicule}' onsubmit="return verif(this);">
             <div>
                 <div class="container">
                     <div class="well">
