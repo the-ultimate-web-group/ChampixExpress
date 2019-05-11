@@ -1,4 +1,4 @@
-package com.champix.servermom.domains;
+package com.champix.champixtopic.domains;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
