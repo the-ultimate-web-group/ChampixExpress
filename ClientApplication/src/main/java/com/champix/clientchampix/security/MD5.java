@@ -33,19 +33,17 @@ public class MD5 {
 			
 			return sb.toString();
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-			return "";
+			throw new RuntimeException(e);
 		}
 	}
 	
 	/**
-	 * Encrypt the string `content` by using the md5 hash string `key`.
+	 * Encrypt the string `content` by using the MD5 hash string `key`.
 	 * @param key The MD5 hash to encrypt `content`.
 	 * @param content The string to encrypt using `key`.
 	 * @return The encrypted string.
 	 */
 	public static String encrypt(byte[] key, String content) {
-		// TODO: See https://stackoverflow.com/questions/23561104/how-to-encrypt-and-decrypt-string-with-my-passphrase-in-java-pc-not-mobile-plat/32583766
 		try {
 			key = Arrays.copyOf(key, 16);
 			Key k = new SecretKeySpec(key, "AES");
