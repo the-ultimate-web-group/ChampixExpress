@@ -10,8 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.Date;
-import java.util.List;
+import java.text.SimpleDateFormat;
 
 @RequestMapping("/reservation")
 @RestController
@@ -26,6 +27,7 @@ public class ReservationController {
 
         String destinationPage="";
         try {
+            request.setAttribute("idVehicule", request.getParameter("idVehicule"));
             destinationPage = "views/reservation";
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
@@ -34,23 +36,28 @@ public class ReservationController {
         return new ModelAndView(destinationPage);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/askReservation")
-    public ModelAndView askReservation(HttpServletRequest request,
+    @RequestMapping(method = RequestMethod.GET, value = "/envoiReservation")
+    public ModelAndView envoiReservation(HttpServletRequest request,
                                      HttpServletResponse response) throws Exception {
 
         String destinationPage="";
         try {
             int idVehicule = Integer.parseInt(request.getParameter("idVehicule"));
-            int idClient = Integer.parseInt(request.getParameter("idClient"));
-//            Date dateDeb = new Date(request.getParameter("dateDeb"));
-//            Date dateFin = Integer.parseInt(request.getParameter("dateFin"));
+            HttpSession session = request.getSession();
+            int idClient = (int) session.getAttribute("id");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date date = simpleDateFormat.parse(request.getParameter("dateDeb"));
+            Date dateDeb = new java.sql.Date(date.getTime());
+            java.util.Date date2 = simpleDateFormat.parse(request.getParameter("dateFin"));
+            Date dateFin = new java.sql.Date(date2.getTime());
 
             //TODO jms call
             ReservationDTO reservationDTO = new ReservationDTO();
             reservationDTO.setIdVehicule(idVehicule);
             reservationDTO.setIdClient(idClient);
-//            reservationDTO.setDateDebut(dateDeb);
-//            reservationDTO.setDateFin(dateFin);
+            reservationDTO.setDateDebut(dateDeb);
+            reservationDTO.setDateFin(dateFin);
+            System.out.println(reservationDTO);
             messageJms.sendMessage(reservationDTO);
 
             destinationPage = "/index";

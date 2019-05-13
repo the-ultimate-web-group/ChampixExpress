@@ -40,7 +40,7 @@
                                         <td>${borne.vehiculeByIdVehicule.etatBatterie}</td>
                                         <td>
                                             <a class="btn btn-info"
-                                               href="/reservation/reservation"
+                                               href="/reservation/reservation?idVehicule=${borne.vehiculeByIdVehicule.idVehicule}"
                                                role="button">
                                                 <i class="fas fa-calendar-alt mr-2"></i>
                                             </a>
