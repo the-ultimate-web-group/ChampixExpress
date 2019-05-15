@@ -344,7 +344,7 @@ CREATE TABLE `utilisateur` (
 	`mdp` VARCHAR(45) NOT NULL) ENGINE = InnoDB;
 
 INSERT INTO `utilisateur` (id_client, identifiant, mdp)
-SELECT c.id_client, CONCAT(LOWER(c.nom), ".", LOWER(c.prenom), "@champix.com"), MD5(c.prenom)
+SELECT c.id_client, CONCAT(LOWER(c.nom), ".", LOWER(c.prenom), "@champix.com"), MD5(LOWER(c.prenom))
 FROM `client` c;
 
 -- --------------------------------------------------------
