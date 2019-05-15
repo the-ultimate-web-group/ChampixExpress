@@ -1,5 +1,6 @@
 package com.champix.clientchampix.controller;
 
+import com.champix.clientchampix.dto.ReservationDTO;
 import com.champix.clientchampix.jms.MessageJms;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,12 +10,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+import javax.servlet.http.HttpSession;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 @RequestMapping("/reservation")
 @RestController
 @CrossOrigin
 public class ReservationController {
+
+    MessageJms messageJms = new MessageJms();
 
     @RequestMapping(method = RequestMethod.GET, value = "/reservation")
     public ModelAndView getReservation(HttpServletRequest request,
@@ -22,13 +27,38 @@ public class ReservationController {
 
         String destinationPage="";
         try {
-            int idVehicule = Integer.parseInt(request.getParameter("idVehicule"));
-            int idClient = Integer.parseInt(request.getParameter("idClient"));
+            request.setAttribute("idVehicule", request.getParameter("idVehicule"));
+            destinationPage = "views/reservation";
+        } catch (Exception e) {
+            request.setAttribute("error", e.getMessage());
+            destinationPage = "views/error";
+        }
+        return new ModelAndView(destinationPage);
+    }
 
-//            StringBuilder message = new StringBuilder();
-//            MessageJms messageJms = new MessageJms();
-//            messageJms.sendMessage(" ");
+    @RequestMapping(method = RequestMethod.GET, value = "/envoiReservation")
+    public ModelAndView envoiReservation(HttpServletRequest request,
+                                     HttpServletResponse response) throws Exception {
+
+        String destinationPage="";
+        try {
+            int idVehicule = Integer.parseInt(request.getParameter("idVehicule"));
+            HttpSession session = request.getSession();
+            int idClient = (int) session.getAttribute("id");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date date = simpleDateFormat.parse(request.getParameter("dateDeb"));
+            Date dateDeb = new java.sql.Date(date.getTime());
+            java.util.Date date2 = simpleDateFormat.parse(request.getParameter("dateFin"));
+            Date dateFin = new java.sql.Date(date2.getTime());
+
             //TODO jms call
+            ReservationDTO reservationDTO = new ReservationDTO();
+            reservationDTO.setIdVehicule(idVehicule);
+            reservationDTO.setIdClient(idClient);
+            reservationDTO.setDateDebut(dateDeb);
+            reservationDTO.setDateFin(dateFin);
+            System.out.println(reservationDTO);
+            messageJms.sendMessage(reservationDTO);
 
             destinationPage = "/index";
         } catch (Exception e) {

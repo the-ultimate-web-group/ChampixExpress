@@ -4,6 +4,8 @@ import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.xml.soap.Text;
+import java.io.Serializable;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 public class MessageJms {
@@ -21,8 +23,8 @@ public class MessageJms {
     private Connection connection;
     private Context ctxt;
 
-    public void sendMessage(String stringMessage) throws JMSException, NamingException {
-        TextMessage message;
+    public void sendMessage(Serializable messageToSend) throws JMSException, NamingException {
+        ObjectMessage message;
         try {
             ctxt = JBossContext.getInitialContext();
             String connectionFactoryString = System.getProperty(
@@ -49,7 +51,8 @@ public class MessageJms {
             System.out.println("Session ouverte ! ");
             Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             MessageProducer producteur = session.createProducer(destination);
-            message = session.createTextMessage();
+            message = session.createObjectMessage();
+            message.setObject(messageToSend);
             connection.start();
             producteur.send(message);
         } catch (Exception e) {

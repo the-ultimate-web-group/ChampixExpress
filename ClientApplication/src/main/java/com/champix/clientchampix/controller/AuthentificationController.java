@@ -43,7 +43,7 @@ public class AuthentificationController {
                 if (unUtilisateur.getMdp().equals(mdp)) {
                     HttpSession session = request.getSession();
                     session.setAttribute("id", unUtilisateur.getIdClient());
-                    destinationPage = "redirect:/station/listerStations";
+                    destinationPage = "/index";
                 } else {
                     message = "mot de passe erroné";
                     request.setAttribute("erreur", message);

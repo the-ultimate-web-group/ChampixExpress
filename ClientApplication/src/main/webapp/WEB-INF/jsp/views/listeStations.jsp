@@ -1,25 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="en">
 
-<%@include file="../header.jsp" %>
-<body class="liste">
-<div class="jumbotron text-center">
-    <h1>Liste des réservations</h1>
-</div>
+<%@ include file="../header.jsp" %>
 
-<div class="container">
+<body id="page-top">
+
+<section class="bg-primary text-white mb-0">
+    <h2 class="text-center text-uppercase text-white">Reservation</h2>
+    <hr class="star-light mb-5">
+
     <div class="container">
-        <table class="table table-hover">
+        <table class="table bg-white table-hover">
             <tr>
-                <th class="col-md-1">Numéro de station</th>
-                <th class="col-md-2">Ville</th>
-                <th class="col-md-2">Adresse</th>
-                <th class="col-md-2">Bornes</th>
+                <th>Ville</th>
+                <th>Adresse</th>
+                <th>Bornes</th>
             </tr>
-
             <c:forEach items="${stations}" var="item">
                 <tr>
-                    <td>${item.numero}</td>
                     <td>${item.ville}</td>
                     <td>${item.adresse}</td>
                     <td>
@@ -35,40 +35,34 @@
                                 <tr>
                                     <td>${borne.idBorne}</td>
                                     <c:if test="${borne.etatBorne == 0}">
-                                        <td>Libre</td>
+                                        <td> <p class="label-etat libre"> Libre </p></td>
                                         <td>${borne.vehiculeByIdVehicule.typeVehiculeByTypeVehicule.typeVehicule}</td>
                                         <td>${borne.vehiculeByIdVehicule.etatBatterie}</td>
                                         <td>
                                             <a class="btn btn-info"
-                                               href="/reservation/reservation?id=${borne.idBorne}"
-                                               role="button"><span class="glyphicon glyphicon-calendar"></span></a>
+                                               href="/reservation/reservation?idVehicule=${borne.vehiculeByIdVehicule.idVehicule}"
+                                               role="button">
+                                                <i class="fas fa-calendar-alt mr-2"></i>
+                                            </a>
                                         </td>
                                     </c:if>
                                     <c:if test="${borne.etatBorne != 0}">
-                                        <td>En utilisation</td>
+                                        <td> <p class="label-etat occupe"> En utilisation </p></td>
                                     </c:if>
 
                                 </tr>
                             </c:forEach>
                         </table>
                     </td>
-                        <%--<td>--%>
-                        <%--<c:if test="${item.statut == 'En attente'}">--%>
-                        <%--<a class="btn btn-info" href="validerReservation.htm?id=${item.oeuvreventeByIdOeuvrevente.idOeuvrevente}&adh=${item.adherentByIdAdherent.idAdherent}&date=${item.dateReservation}"--%>
-                        <%--role="button"><span class="glyphicon glyphicon-ok"></span></a>--%>
-                        <%--</c:if>--%>
-                        <%--</td>--%>
-                        <%--<td>--%>
-                        <%--<c:if test="${item.statut != 'Annulee'}">--%>
-                        <%--<a class="btn btn-danger" href="annulerReservation.htm?id=${item.oeuvreventeByIdOeuvrevente.idOeuvrevente}&adh=${item.adherentByIdAdherent.idAdherent}&date=${item.dateReservation}"--%>
-                        <%--role="button"><span class="glyphicon glyphicon-remove"></span></a>--%>
-                        <%--</c:if>--%>
-                        <%--</td>--%>
                 </tr>
             </c:forEach>
         </table>
     </div>
-</div>
+</section>
+
+<!-- Footer -->
+<%@ include file="../footer.jsp" %>
+
 </body>
 
 </html>
