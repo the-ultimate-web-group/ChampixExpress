@@ -1,5 +1,7 @@
 package com.champix.clientchampix.domains;
 
+import com.champix.clientchampix.security.MD5;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -37,8 +39,17 @@ public class UtilisateurEntity {
         return mdp;
     }
 
+    public void setMdp(String mdp, boolean isEncrypted) {
+        if (isEncrypted)
+            this.mdp = mdp;
+        else
+            this.mdp = MD5.hash(mdp);
+    }
     public void setMdp(String mdp) {
-        this.mdp = mdp;
+        if (mdp.length() == 32)
+            setMdp(mdp, true);
+        else
+            setMdp(mdp, false);
     }
 
     @Override
