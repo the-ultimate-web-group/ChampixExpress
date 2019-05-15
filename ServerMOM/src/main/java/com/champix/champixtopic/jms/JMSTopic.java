@@ -17,7 +17,7 @@ import java.sql.Timestamp;
         @ActivationConfigProperty(propertyName = "destination", propertyValue = "java:jboss/exported/topic/ChampixTopic"),
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic")},
         mappedName = "ChampixTopic")
-public class JMSQueue implements MessageListener {
+public class JMSTopic implements MessageListener {
 
     @Autowired
     ReservationEntityRepository reservationEntityRepository;
