@@ -1,6 +1,7 @@
 package com.champix.clientchampix.controller;
 
 import com.champix.clientchampix.domains.UtilisateurEntity;
+import com.champix.clientchampix.jwt.JWTManager;
 import com.champix.clientchampix.repository.UtilisateurEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -54,6 +55,17 @@ public class AuthentificationController {
                 request.setAttribute("erreur", message);
                 destinationPage = "/views/error";
             }
+        }
+        return new ModelAndView(destinationPage);
+    }
+
+    @RequestMapping("/logout")
+    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String destinationPage;
+        {
+            HttpSession session = request.getSession();
+            session.removeAttribute("id");
+            destinationPage = "/index";
         }
         return new ModelAndView(destinationPage);
     }
