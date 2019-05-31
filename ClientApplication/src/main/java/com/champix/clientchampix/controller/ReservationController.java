@@ -36,7 +36,7 @@ public class ReservationController {
         return new ModelAndView(destinationPage);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/envoiReservation")
+    @RequestMapping(method = RequestMethod.POST, value = "/envoiReservation")
     public ModelAndView envoiReservation(HttpServletRequest request,
                                      HttpServletResponse response) throws Exception {
 
