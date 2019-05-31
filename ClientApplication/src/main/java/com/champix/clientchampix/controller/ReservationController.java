@@ -1,7 +1,7 @@
 package com.champix.clientchampix.controller;
 
 import com.champix.clientchampix.dto.ReservationDTO;
-import com.champix.clientchampix.jms.MessageJms;
+import com.champix.clientchampix.jms.JmsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 @CrossOrigin
 public class ReservationController {
 
-    MessageJms messageJms = new MessageJms();
+    JmsService messageJms = new JmsService();
 
     @RequestMapping(method = RequestMethod.GET, value = "/reservation")
     public ModelAndView getReservation(HttpServletRequest request,
