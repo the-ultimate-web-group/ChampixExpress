@@ -26,11 +26,12 @@ public class JMSTopic implements MessageListener {
     public void onMessage(Message message) {
 
         try {
+
             System.out.println("sqdqsd");
 
             ObjectMessage objMessage = (ObjectMessage) message;
 
-            System.out.println("Allo le monde");
+            System.out.println("Allo le monde" + objMessage.getObject());
 
             ReservationDTO reservationDTO = (ReservationDTO) objMessage.getObject();
 
