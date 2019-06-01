@@ -28,7 +28,7 @@ public class JmsService {
     public JmsService () {
     }
 
-    public void sendMessage(ReservationDTO messageToSend, TopicConnectionFactory topicConnectionFactory, Topic topic) throws JMSException, NamingException {
+    public void sendMessage(Serializable messageToSend, TopicConnectionFactory topicConnectionFactory, Topic topic) throws JMSException, NamingException {
         try {
             TopicConnection connection = topicConnectionFactory.createTopicConnection();
             connection.start();
@@ -46,7 +46,6 @@ public class JmsService {
             producer.close();
             topicSession.close();
             connection.close();
-
 
         } catch (JMSException e) {
 

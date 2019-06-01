@@ -67,7 +67,6 @@ public class ReservationController {
             reservationDTO.setIdClient(idClient);
             reservationDTO.setDateReservation(dateDeb);
             reservationDTO.setDateEcheance(dateFin);
-            System.out.println(reservationDTO);
             messageJms.sendMessage(reservationDTO, topicConnectionFactory, topic);
 
             destinationPage = "/index";
