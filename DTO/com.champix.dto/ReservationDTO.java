@@ -1,20 +1,14 @@
-package com.champix.clientchampix.dto;
-
-import com.sun.istack.internal.NotNull;
+package com.champix.dto;
 
 import java.io.Serializable;
 import java.sql.Date;
 
 public class ReservationDTO implements Serializable {
 
-    @NotNull
     private int idClient;
-    @NotNull
     private int idVehicule;
 
-    @NotNull
     private Date dateReservation;
-    @NotNull
     private Date dateEcheance;
 
     public int getIdClient() {

@@ -1,9 +1,8 @@
 package com.champix.champixtopic.jms;
 
 import com.champix.champixtopic.domains.ReservationEntity;
-import com.champix.champixtopic.dto.ReservationDTO;
-import com.champix.champixtopic.repositories.ReservationEntityRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.champix.champixtopic.service.ReservationService;
+import com.champix.dto.ReservationDTO;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
@@ -19,10 +18,7 @@ import java.sql.Timestamp;
         mappedName = "ChampixTopic")
 public class JMSTopic implements MessageListener {
 
-    @Autowired
-    ReservationEntityRepository reservationEntityRepository;
 
-    @Override
     public void onMessage(Message message) {
 
         try {
@@ -39,9 +35,7 @@ public class JMSTopic implements MessageListener {
             reservationEntity.setVehicule(reservationDTO.getIdVehicule());
             reservationEntity.setDateReservation(new Timestamp(reservationDTO.getDateReservation().getTime()));
 
-            if (!validateReservationEntity(reservationEntity)) return;
-
-            reservationEntityRepository.save(reservationEntity);
+            ReservationService.getInstance().save(reservationEntity);
 
         } catch (JMSException jmsException) {
             jmsException.printStackTrace();
@@ -65,10 +59,4 @@ public class JMSTopic implements MessageListener {
      * @param reservationEntity
      * @return boolean (true if(valid) else false)
      */
-    private boolean validateReservationEntity (ReservationEntity reservationEntity) {
-
-        // Test both are not present
-        return !reservationEntityRepository.findByClientAndDateReservation(reservationEntity.getClient(), reservationEntity.getDateReservation()).isPresent() &&
-                !reservationEntityRepository.findByVehiculeAndDateReservation(reservationEntity.getVehicule(), reservationEntity.getDateReservation()).isPresent();
-    }
 }
