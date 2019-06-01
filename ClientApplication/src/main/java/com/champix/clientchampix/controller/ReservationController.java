@@ -65,8 +65,8 @@ public class ReservationController {
             ReservationDTO reservationDTO = new ReservationDTO();
             reservationDTO.setIdVehicule(idVehicule);
             reservationDTO.setIdClient(idClient);
-            reservationDTO.setDateDebut(dateDeb);
-            reservationDTO.setDateFin(dateFin);
+            reservationDTO.setDateReservation(dateDeb);
+            reservationDTO.setDateEcheance(dateFin);
             System.out.println(reservationDTO);
             messageJms.sendMessage(reservationDTO, topicConnectionFactory, topic);
 

@@ -1,14 +1,21 @@
 package com.champix.clientchampix.dto;
 
+import com.sun.istack.internal.NotNull;
+
 import java.io.Serializable;
 import java.sql.Date;
 
 public class ReservationDTO implements Serializable {
+
+    @NotNull
     private int idClient;
+    @NotNull
     private int idVehicule;
 
-    private Date dateDebut;
-    private Date dateFin;
+    @NotNull
+    private Date dateReservation;
+    @NotNull
+    private Date dateEcheance;
 
     public int getIdClient() {
         return idClient;
@@ -16,14 +23,6 @@ public class ReservationDTO implements Serializable {
 
     public int getIdVehicule() {
         return idVehicule;
-    }
-
-    public Date getDateDebut() {
-        return dateDebut;
-    }
-
-    public Date getDateFin() {
-        return dateFin;
     }
 
     public void setIdClient(int idClient) {
@@ -34,12 +33,19 @@ public class ReservationDTO implements Serializable {
         this.idVehicule = idVehicule;
     }
 
-    public void setDateDebut(Date dateDebut) {
-        this.dateDebut = dateDebut;
+    public Date getDateReservation() {
+        return dateReservation;
     }
 
-    public void setDateFin(Date dateFin) {
-        this.dateFin = dateFin;
+    public void setDateReservation(Date dateReservation) {
+        this.dateReservation = dateReservation;
+    }
+
+    public Date getDateEcheance() {
+        return dateEcheance;
+    }
+
+    public void setDateEcheance(Date dateEcheance) {
+        this.dateEcheance = dateEcheance;
     }
 }
-
