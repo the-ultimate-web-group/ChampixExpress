@@ -23,16 +23,11 @@ public class JmsService {
 
     private Context ctxt;
 
-    @Resource(mappedName = "java:/ConnectionFactory")
-    TopicConnectionFactory topicConnectionFactory;
-
-    @Resource(lookup = "java:jboss/exported/topic/ChampixTopic")
-    Topic topic;
 
     public JmsService () {
     }
 
-    public void sendMessage(Serializable messageToSend) throws JMSException, NamingException {
+    public void sendMessage(Serializable messageToSend, TopicConnectionFactory topicConnectionFactory, Topic topic) throws JMSException, NamingException {
         try {
             TopicConnection connection = topicConnectionFactory.createTopicConnection();
             connection.start();

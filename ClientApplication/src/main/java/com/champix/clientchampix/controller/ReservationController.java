@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
+import javax.jms.Topic;
+import javax.jms.TopicConnectionFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,6 +23,13 @@ import java.text.SimpleDateFormat;
 public class ReservationController {
 
     JmsService messageJms = new JmsService();
+
+    @Resource(mappedName = "java:/ConnectionFactory")
+    TopicConnectionFactory topicConnectionFactory;
+
+    @Resource(lookup = "java:jboss/exported/topic/ChampixTopic")
+    Topic topic;
+
 
     @RequestMapping(method = RequestMethod.GET, value = "/reservation")
     public ModelAndView getReservation(HttpServletRequest request,
@@ -36,7 +46,7 @@ public class ReservationController {
         return new ModelAndView(destinationPage);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/envoiReservation")
+        @RequestMapping(method = RequestMethod.POST, value = "/envoiReservation")
     public ModelAndView envoiReservation(HttpServletRequest request,
                                      HttpServletResponse response) throws Exception {
 
@@ -58,7 +68,7 @@ public class ReservationController {
             reservationDTO.setDateDebut(dateDeb);
             reservationDTO.setDateFin(dateFin);
             System.out.println(reservationDTO);
-            messageJms.sendMessage(reservationDTO);
+            messageJms.sendMessage(reservationDTO, topicConnectionFactory, topic);
 
             destinationPage = "/index";
         } catch (Exception e) {
