@@ -1,5 +1,6 @@
 package com.champix.clientchampix.jms;
 
+import com.champix.clientchampix.dto.ReservationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
@@ -27,7 +28,7 @@ public class JmsService {
     public JmsService () {
     }
 
-    public void sendMessage(Serializable messageToSend, TopicConnectionFactory topicConnectionFactory, Topic topic) throws JMSException, NamingException {
+    public void sendMessage(ReservationDTO messageToSend, TopicConnectionFactory topicConnectionFactory, Topic topic) throws JMSException, NamingException {
         try {
             TopicConnection connection = topicConnectionFactory.createTopicConnection();
             connection.start();
