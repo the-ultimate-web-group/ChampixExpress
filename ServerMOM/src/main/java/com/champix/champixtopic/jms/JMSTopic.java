@@ -26,7 +26,15 @@ public class JMSTopic implements MessageListener {
     public void onMessage(Message message) {
 
         try {
-            ReservationDTO reservationDTO = (ReservationDTO) ((ObjectMessage) message).getObject();
+            System.out.println("sqdqsd");
+
+            ObjectMessage objMessage = (ObjectMessage) message;
+
+            System.out.println("Allo le monde");
+
+            ReservationDTO reservationDTO = (ReservationDTO) objMessage.getObject();
+
+            System.out.println("Allo le monde");
 
             if (!validateReservationDTO(reservationDTO)) return;
 
@@ -42,7 +50,9 @@ public class JMSTopic implements MessageListener {
             reservationEntityRepository.save(reservationEntity);
 
         } catch (JMSException jmsException) {
-
+            jmsException.printStackTrace();
+        } catch (ClassCastException cce) {
+            cce.printStackTrace();
         }
     }
 

@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class ReservationDTO implements Serializable {
-
     @NotNull
     private int idClient;
     @NotNull
