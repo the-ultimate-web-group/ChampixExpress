@@ -148,7 +148,11 @@ public class JWTManager {
 		Claims claims;
 		try {
 			claims = decode(jwt);
-		} catch (MalformedJwtException ignored) {
+			
+			// If the JWT has expired, return false.
+			if (claims.getExpiration().after(new Date()))
+				return false;
+		} catch (NullPointerException | MalformedJwtException ignored) {
 			return false;
 		}
 		

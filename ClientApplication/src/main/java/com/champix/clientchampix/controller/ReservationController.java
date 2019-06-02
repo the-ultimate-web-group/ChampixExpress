@@ -34,7 +34,9 @@ public class ReservationController {
     @RequestMapping(method = RequestMethod.GET, value = "/reservation")
     public ModelAndView getReservation(HttpServletRequest request,
                                      HttpServletResponse response) throws Exception {
-
+        if (!checkJWTSession(request))
+            return new ModelAndView("views/error");
+        
         String destinationPage="";
         try {
             request.setAttribute("idVehicule", request.getParameter("idVehicule"));
@@ -49,6 +51,8 @@ public class ReservationController {
         @RequestMapping(method = RequestMethod.POST, value = "/envoiReservation")
     public ModelAndView envoiReservation(HttpServletRequest request,
                                      HttpServletResponse response) throws Exception {
+        if (!checkJWTSession(request))
+            return new ModelAndView("views/error");
 
         String destinationPage="";
         try {
@@ -75,5 +79,14 @@ public class ReservationController {
             destinationPage = "views/error";
         }
         return new ModelAndView(destinationPage);
+    }
+    
+    private boolean checkJWTSession(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (!JWTManager.verify(session.getAttribute("jwt").toString())) {
+            request.setAttribute("error", "Session expired");
+            return false;
+        }
+        return true;
     }
 }
