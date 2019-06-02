@@ -1,6 +1,7 @@
 package com.champix.clientchampix.controller;
 
 import com.champix.clientchampix.jms.JmsService;
+import com.champix.clientchampix.jwt.JWTManager;
 import com.champix.dto.ReservationDTO;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,9 @@ public class ReservationController {
     @RequestMapping(method = RequestMethod.GET, value = "/reservation")
     public ModelAndView getReservation(HttpServletRequest request,
                                      HttpServletResponse response) throws Exception {
-
+        if (!checkJWTSession(request))
+            return new ModelAndView("/index");
+        
         String destinationPage="";
         try {
             request.setAttribute("idVehicule", request.getParameter("idVehicule"));
@@ -49,6 +52,8 @@ public class ReservationController {
         @RequestMapping(method = RequestMethod.POST, value = "/envoiReservation")
     public ModelAndView envoiReservation(HttpServletRequest request,
                                      HttpServletResponse response) throws Exception {
+        if (!checkJWTSession(request))
+            return new ModelAndView("/index");
 
         String destinationPage="";
         try {
@@ -75,5 +80,16 @@ public class ReservationController {
             destinationPage = "views/error";
         }
         return new ModelAndView(destinationPage);
+    }
+    
+    private boolean checkJWTSession(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (!JWTManager.verify((String) session.getAttribute("jwt"))) {
+            session.setAttribute("id", null);
+            session.setAttribute("jwt", null);
+            request.setAttribute("error", "Session expired");
+            return false;
+        }
+        return true;
     }
 }
