@@ -63,3 +63,5 @@ Nous utilisons [Github] (https://github.com/) pour la gestion des versions.
 - **Thibault Chatelain** - *Admin Application*
 - **Léa Chemoul** - *Client Application*
 - **Ilorian Ciavaldini** - *Server*
+
+> Powered with 💕
