@@ -58,8 +58,8 @@ Nous utilisons [Github] (https://github.com/) pour la gestion des versions.
 
 ## Auteurs
 
-* ** Valentin Berger ** - * Client Application*
-* ** Alexandre Bruhat ** - * Server *
-* ** Thibault Chatelain ** - * Admin Application*
-* ** Léa Chemoul ** - * Client Application*
-* ** Ilorian Ciavaldini ** - * Server *
+- **Valentin Berger** - *Client Application*
+- **Alexandre Bruhat** - *Server*
+- **Thibault Chatelain** - *Admin Application*
+- **Léa Chemoul** - *Client Application*
+- **Ilorian Ciavaldini** - *Server*
