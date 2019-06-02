@@ -44,7 +44,7 @@ public class AuthentificationController {
                 if (unUtilisateur.getMdp().equals(mdp)) {
                     HttpSession session = request.getSession();
                     session.setAttribute("id", unUtilisateur.getIdClient());
-                    session.setAttribute("jwt", JWTManager.create(unUtilisateur.getIdClient().toString(), "<unknown>", "<unknown>"));
+                    session.setAttribute("jwt", new JWTManager.Builder().setId(unUtilisateur.getIdClient().toString()).build());
                     destinationPage = "/index";
                 } else {
                     message = "mot de passe erroné";
