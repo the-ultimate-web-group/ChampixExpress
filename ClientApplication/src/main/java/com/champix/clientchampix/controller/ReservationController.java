@@ -1,7 +1,8 @@
 package com.champix.clientchampix.controller;
 
-import com.champix.clientchampix.jms.JmsService;
-import com.champix.dto.ReservationDTO;
+import com.champix.clientchampix.dto.ReservationDTO;
+import com.champix.clientchampix.jms.MessageJms;
+import com.champix.clientchampix.jwt.JWTManager;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
