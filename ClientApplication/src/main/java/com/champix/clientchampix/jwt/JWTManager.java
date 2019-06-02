@@ -1,10 +1,9 @@
 package com.champix.clientchampix.jwt;
 
-import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
-
 import io.jsonwebtoken.*;
 
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
 import java.util.Date;
 import java.util.UUID;
@@ -144,15 +143,18 @@ public class JWTManager {
 	 * @return Return {@code true} if the JSON Web Token is valid, {@code false} otherwise.
 	 */
 	public static boolean verify(String jwt) {
-		// TODO: Implement the verify function
+		if (jwt == null)
+			return false;
+		
 		Claims claims;
 		try {
 			claims = decode(jwt);
 			
 			// If the JWT has expired, return false.
-			if (claims.getExpiration().after(new Date()))
+			Date now = new Date();
+			if (claims.getExpiration().before(now))
 				return false;
-		} catch (NullPointerException | MalformedJwtException ignored) {
+		} catch (NullPointerException | MalformedJwtException | ExpiredJwtException ignored) {
 			return false;
 		}
 		
