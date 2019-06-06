@@ -1,8 +1,11 @@
 package com.champix.clientchampix.controller;
 
+import com.champix.clientchampix.domains.ReservationEntity;
 import com.champix.clientchampix.jms.JmsService;
 import com.champix.clientchampix.jwt.JWTManager;
+import com.champix.clientchampix.repository.ReservationEntityRepository;
 import com.champix.dto.ReservationDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,11 +20,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 @RequestMapping("/reservation")
 @RestController
 @CrossOrigin
 public class ReservationController {
+
+    private ReservationEntityRepository reservationEntityRepository;
 
     JmsService messageJms = new JmsService();
 
@@ -31,6 +37,10 @@ public class ReservationController {
     @Resource(lookup = "java:jboss/exported/topic/ChampixTopic")
     Topic topic;
 
+    @Autowired
+    ReservationController(ReservationEntityRepository reservationEntityRepository) {
+        this.reservationEntityRepository = reservationEntityRepository;
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/reservation")
     public ModelAndView getReservation(HttpServletRequest request,
@@ -91,5 +101,26 @@ public class ReservationController {
             return false;
         }
         return true;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/reservations")
+    public ModelAndView getAllReservationUser(HttpServletRequest request,
+                                       HttpServletResponse response) throws Exception {
+        if (!checkJWTSession(request))
+            return new ModelAndView("/index");
+
+        String destinationPage="";
+        try {
+            HttpSession session = request.getSession();
+            int idClient = (int) session.getAttribute("id");
+            List<ReservationEntity> reservationEntities = reservationEntityRepository.findAllByClient(idClient);
+            System.out.println(reservationEntities);
+            request.setAttribute("reservations",reservationEntities);
+            destinationPage = "views/listeReservations";
+        } catch (Exception e) {
+            request.setAttribute("error", e.getMessage());
+            destinationPage = "views/error";
+        }
+        return new ModelAndView(destinationPage);
     }
 }
