@@ -1,0 +1,104 @@
+package com.champix.clientchampix.security;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.Base64;
+
+public class MD5 {
+	
+	/**
+	 * Hash a string to MD5.
+	 * @param str The string to hash.
+	 * @return The hash of `str`.
+	 */
+	public static String hash(String str) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(str.getBytes());
+			
+			byte[] data = md.digest();
+			
+			StringBuilder sb = new StringBuilder();
+			for (byte datum : data)
+				sb.append(Integer.toString((datum & 0xff) + 0x100, 16).substring(1));
+			
+			return sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	/**
+	 * Encrypt the string `content` by using the MD5 hash string `key`.
+	 * @param key The MD5 hash to encrypt `content`.
+	 * @param content The string to encrypt using `key`.
+	 * @return The encrypted string.
+	 */
+	public static String encrypt(byte[] key, String content) {
+		try {
+			key = Arrays.copyOf(key, 16);
+			Key k = new SecretKeySpec(key, "AES");
+			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+			cipher.init(Cipher.ENCRYPT_MODE, k);
+			
+			return Base64.getMimeEncoder().encodeToString(cipher.doFinal(content.getBytes()));
+		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
+			e.printStackTrace();
+		}
+		
+		return "";
+	}
+	
+	/**
+	 * Encrypt the string `content` by using the md5 hash string `key`.
+	 * @param key The MD5 hash to encrypt `content`.
+	 * @param content The string to encrypt using `key`.
+	 * @return The encrypted string.
+	 */
+	public static String encrypt(String key, String content) {
+		return encrypt(key.getBytes(StandardCharsets.UTF_8), content);
+	}
+	
+	/**
+	 * Decrypt the string `encrypted` by using the md5 hash string `key`.
+	 * @param key The MD5 hash to encrypt `content`.
+	 * @param encrypted The encrypted string to decrypt.
+	 * @return The decrypted string.
+	 */
+	public static String decrypt(byte[] key, String encrypted) {
+		try {
+			key = Arrays.copyOf(key, 16);
+			Key k = new SecretKeySpec(key, "AES");
+			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
+			cipher.init(Cipher.DECRYPT_MODE, k);
+			
+			byte[] content = cipher.doFinal(Base64.getMimeDecoder().decode(encrypted.trim().getBytes()));
+			
+			return new String(content);
+		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
+			e.printStackTrace();
+		}
+		
+		return "";
+	}
+	
+	/**
+	 * Decrypt the string `encrypted` by using the md5 hash string `key`.
+	 * @param key The MD5 hash to encrypt `content`.
+	 * @param encrypted The encrypted string to decrypt.
+	 * @return The decrypted string.
+	 */
+	public static String decrypt(String key, String encrypted) {
+		return decrypt(key.getBytes(StandardCharsets.UTF_8), encrypted);
+	}
+}
+
