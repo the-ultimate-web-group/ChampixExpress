@@ -6,10 +6,16 @@
 <div class="col-md-12 well well-md">
     <center><h1>Gestion des erreurs </h1></center>
 </div>
-<c:if test="${erreur != null }">
+<c:if test="${erreur != null}">
     <div class="alert-danger" role="alert">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <c:out value="${erreur}" />
+    </div>
+</c:if>
+<c:if test="${error != null}">
+    <div class="alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <c:out value="${error}" />
     </div>
 </c:if>
 

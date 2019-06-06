@@ -1,13 +1,12 @@
 package com.champix.clientchampix.jwt;
 
+import io.jsonwebtoken.*;
+
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
-
-import io.jsonwebtoken.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.security.Key;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Class containing static methods to manage JSON Web Tokens for the application.
@@ -15,6 +14,49 @@ import java.util.Date;
  * Source code inspired from https://github.com/oktadeveloper/okta-java-jwt-example/blob/master/src/main/java/com/okta/createverifytokens/JWTDemo.java
  */
 public class JWTManager {
+	
+	// TODO See https://tools.ietf.org/html/rfc7519#section-4.1
+	
+	public static final String JWT_ATTRIBUTE = "jwt";
+	public static final String ISSUER = "ChampixExpress";
+	
+	public static class Builder {
+		private String id;
+		private String issuer;
+		private String subject;
+		private long expiredAfterMillis;
+		
+		public Builder() {
+			id = UUID.randomUUID().toString();
+			issuer = JWTManager.ISSUER;
+			subject = "";
+			expiredAfterMillis = -1;
+		}
+		
+		public Builder setId(String id) {
+			this.id = id;
+			return this;
+		}
+		
+		public Builder setIssuer(String issuer) {
+			this.issuer = issuer;
+			return this;
+		}
+		
+		public Builder setSubject(String subject) {
+			this.subject = subject;
+			return this;
+		}
+		
+		public Builder setExpiredAfterMillis(long expiredAfterMillis) {
+			this.expiredAfterMillis = expiredAfterMillis;
+			return this;
+		}
+		
+		public String build() {
+			return JWTManager.create(id, issuer, subject, expiredAfterMillis);
+		}
+	}
 	
 	/**
 	 * Generate a JSON Web Token.
@@ -101,11 +143,18 @@ public class JWTManager {
 	 * @return Return {@code true} if the JSON Web Token is valid, {@code false} otherwise.
 	 */
 	public static boolean verify(String jwt) {
-		// TODO: Implement the verify function
+		if (jwt == null)
+			return false;
+		
 		Claims claims;
 		try {
 			claims = decode(jwt);
-		} catch (MalformedJwtException ignored) {
+			
+			// If the JWT has expired, return false.
+			Date now = new Date();
+			if (claims.getExpiration().before(now))
+				return false;
+		} catch (NullPointerException | MalformedJwtException | ExpiredJwtException ignored) {
 			return false;
 		}
 		

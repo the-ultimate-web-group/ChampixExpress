@@ -41,7 +41,20 @@ public class JWTManagerTest {
 	}
 	
 	@Test
-	public void test2_decode() {
+	public void test2_create() {
+		nowMillis = System.currentTimeMillis();
+		jwt = new JWTManager.Builder()
+				.setId(id)
+				.setIssuer(issuer)
+				.setSubject(subject)
+				.setExpiredAfterMillis(expiredAfterMillis)
+				.build();
+		System.out.println("jwt = " + jwt);
+		assertNotEquals("", jwt);
+	}
+	
+	@Test
+	public void test3_decode() {
 		claims = JWTManager.decode(jwt);
 		System.out.println("claims type = " + claims.getClass().getSimpleName());
 		System.out.println("claims.id = " + claims.getId());
@@ -66,13 +79,13 @@ public class JWTManagerTest {
 	}
 	
 	@Test
-	public void test3_verify() {
+	public void test4_verify() {
 		assertTrue(JWTManager.verify(jwt));
 		assertFalse(JWTManager.verify("123"));
 	}
 	
 	@Test
-	public void test4_getJWTSecretKey() {
+	public void test5_getJWTSecretKey() {
 		assertTrue(JWTManager.getJWTSecretKey().length() >= 5);
 	}
 }

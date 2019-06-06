@@ -1,6 +1,7 @@
 package com.champix.clientchampix.controller;
 
 import com.champix.clientchampix.domains.UtilisateurEntity;
+import com.champix.clientchampix.jwt.JWTManager;
 import com.champix.clientchampix.repository.UtilisateurEntityRepository;
 import com.champix.clientchampix.security.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,10 @@ public class AuthentificationController {
                 if (unUtilisateur.getMdp().equals(mdp)) {
                     HttpSession session = request.getSession();
                     session.setAttribute("id", unUtilisateur.getIdClient());
+                    session.setAttribute("jwt", new JWTManager.Builder()
+                            .setId(unUtilisateur.getIdClient().toString())
+                            .setExpiredAfterMillis(3600000L)
+                            .build());
                     destinationPage = "/index";
                 } else {
                     message = "mot de passe erroné";
