@@ -91,17 +91,6 @@ public class ReservationController {
         }
         return new ModelAndView(destinationPage);
     }
-    
-    private boolean checkJWTSession(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        if (!JWTManager.verify((String) session.getAttribute("jwt"))) {
-            session.setAttribute("id", null);
-            session.setAttribute("jwt", null);
-            request.setAttribute("error", "Session expired");
-            return false;
-        }
-        return true;
-    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/reservations")
     public ModelAndView getAllReservationUser(HttpServletRequest request,
@@ -122,5 +111,16 @@ public class ReservationController {
             destinationPage = "views/error";
         }
         return new ModelAndView(destinationPage);
+    }
+    
+    private boolean checkJWTSession(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute("id") == null || !JWTManager.verify((String) session.getAttribute("jwt"))) {
+            session.removeAttribute("id");
+            session.removeAttribute("jwt");
+            request.setAttribute("error", "Session expired");
+            return false;
+        }
+        return true;
     }
 }
