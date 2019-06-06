@@ -69,6 +69,7 @@ public class AuthentificationController {
         {
             HttpSession session = request.getSession();
             session.removeAttribute("id");
+            session.removeAttribute("jwt");
             destinationPage = "/index";
         }
         return new ModelAndView(destinationPage);
