@@ -62,4 +62,15 @@ public class AuthentificationController {
         }
         return new ModelAndView(destinationPage);
     }
+
+    @RequestMapping("/logout")
+    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String destinationPage;
+        {
+            HttpSession session = request.getSession();
+            session.removeAttribute("id");
+            destinationPage = "/index";
+        }
+        return new ModelAndView(destinationPage);
+    }
 }
