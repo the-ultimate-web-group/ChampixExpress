@@ -1,0 +1,24 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+    <persistence-unit name="persistenceUnit">
+        <class>com.champix.admin.metier.BorneEntity</class>
+        <class>com.champix.admin.metier.ClientEntity</class>
+        <class>com.champix.admin.metier.ReservationEntity</class>
+        <class>com.champix.admin.metier.StationEntity</class>
+        <class>com.champix.admin.metier.TypeVehiculeEntity</class>
+        <class>com.champix.admin.metier.UtilisateurEntity</class>
+        <class>com.champix.admin.metier.UtiliseEntity</class>
+        <class>com.champix.admin.metier.VehiculeEntity</class>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/autolib?serverTimezone=UTC"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="hibernate.connection.username" value="userepul"/>
+            <property name="hibernate.connection.password" value="epul"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <property name="hibernate.max_fetch_depth" value="3"/>
+        </properties>
+    </persistence-unit>
+</persistence>
