@@ -22,7 +22,7 @@ public class PlanningController {
             ServiceReservationDAO monServiceReservation = new ServiceReservationDAO();
             ServiceVehiculeDAO monServiceVehicule = new ServiceVehiculeDAO();
 
-            List<ReservationEntity> mesReservations = monServiceReservation.consulterListeReservations(request.getParameter("vehicule"));
+            List<ReservationEntity> mesReservations = monServiceReservation.consulterListeReservations((request.getParameter("vehicule") != null  ? request.getParameter("vehicule") : "0" ));
             List<VehiculeEntity> mesVehicules = monServiceVehicule.consulterListeVehicules();
 
             request.setAttribute("mesReservations",mesReservations);

@@ -20,7 +20,7 @@
     </script>
     <meta charset="UTF-8">
     <link href='/resources/fullcalendar/core/main.css' rel='stylesheet' />
-    <link href='/resourcesfullcalendar/daygrid/main.css' rel='stylesheet' />
+    <link href='/resources/fullcalendar/daygrid/main.css' rel='stylesheet' />
 
     <script src='/resources/fullcalendar/core/main.js'></script>
     <script src='/resources/fullcalendar/daygrid/main.js'></script>
