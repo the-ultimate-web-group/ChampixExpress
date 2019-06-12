@@ -36,9 +36,10 @@
                         <div class="text-center mt-4">
                             <button type="submit" class="btn btn-xl btn-outline-light"> Valider
                             </button>
-                            <button type="button" class="btn btn-xl btn-outline-light"
-                                    onclick="relocate_home()"> Annuler
-                            </button>
+                            <a href="/station/listerStations">
+                                <button type="button" class="btn btn-xl btn-outline-light"> Annuler
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
