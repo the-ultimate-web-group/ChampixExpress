@@ -1,0 +1,52 @@
+body
+{
+    margin: 0;
+    padding: 0;
+    background-color: #7fd3f7;
+}
+
+#header h1
+{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 5em;
+}
+
+#conteneur
+{
+    background-color: #e1f7d5;
+    margin: 5%;
+    margin-top: 1%;
+    height: 30%;
+    width: 90%;
+    padding: 1%;
+}
+
+#form
+{
+    display: inline-flex;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    padding-left: 10%;
+}
+
+select
+{
+    margin: 20px;
+}
+
+input
+{
+    margin: 20px;
+    font-size: 1.8em;
+}
+
+#page
+{
+    background-color: #c9c9ff;
+    padding: 10px;
+}
