@@ -33,19 +33,11 @@ Le projet est décomposé en 3 modules.
 - JDK 1.8
 - IDE Intellij
 
-### Installation
-
-
-`` `
-étapes
-`` `
-
-
 ## Déploiement
 
-`` `
-étapes
-`` `
+Pour déployer le projet, il est nécessaire de réaliser les manipulations suivantes :
+ - La partie ADMIN se lance de manière indépendante, directement via la commande spring-boot:run
+ - Les deux autres parties (ServerMOM et Client) se lance en déployant sur wildfly les artifacts présents dans le dossier Deploy. Le dossier contient aussi le standalone.xml à remplacer sur votre configuration wildFly.
 
 ## Construit avec
 
